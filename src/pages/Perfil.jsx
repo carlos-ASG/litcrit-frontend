@@ -1,5 +1,101 @@
 import React, { useState } from "react";
-import "./../styles/Perfil.css";
+import styled from "styled-components";
+import SettingsModal from "../components/SettingsModal";
+
+const PerfilContainer = styled.div`
+  width: 80%;
+  margin: 2rem auto;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+`;
+
+const PerfilHeader = styled.h2`
+  font-size: 2rem;
+  color: #333;
+`;
+
+const Line = styled.hr`
+  border: 0;
+  border-top: 1px solid #d3d3d3;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+`;
+
+const PerfilCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: #fff;
+  border: 1px solid #ffa143;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const PerfilAvatar = styled.div`
+  img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+`;
+
+const PerfilUserInfo = styled.div`
+  text-align: left;
+`;
+
+const PerfilUsername = styled.h3`
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+`;
+
+const PerfilUserEmail = styled.p`
+  margin: 0;
+  color: #888;
+`;
+
+const PerfilUserDescription = styled.p`
+  margin-top: 0.5rem;
+  color: #666;
+`;
+
+const SettingsIcon = styled.div`
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ffa143;
+  &:hover {
+    color: #ff8c00;
+  }
+`;
+
+const ReseñasSection = styled.div`
+  margin-top: 2rem;
+`;
+
+const ReseñasTitle = styled.h3`
+  font-size: 1.5rem;
+  color: #333;
+`;
+
+const Reseña = styled.div`
+  background-color: #fff;
+  border: 1px solid #ffa143;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const BookTitle = styled.h4`
+  font-size: 1.2rem;
+  margin: 0;
+`;
+
+const BookReview = styled.p`
+  color: #666;
+`;
 
 const Perfil = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -9,61 +105,40 @@ const Perfil = () => {
   };
 
   return (
-    <div className="perfil-container">
-      <h2 className="perfil-header">Perfil de Usuario</h2>
-      <div className="perfil-card">
-        <div className="perfil-avatar">
+    <PerfilContainer>
+      <PerfilHeader>Tu Perfil</PerfilHeader>
+      <Line />
+      <PerfilCard>
+        <PerfilAvatar>
           <img
             src="https://via.placeholder.com/150"
             alt="Foto de Perfil"
           />
-        </div>
-        <div className="perfil-user-info">
-          <h3 className="perfil-username">Nombre del Usuario</h3>
-          <p className="perfil-user-email">correo@ejemplo.com</p>
-          <p className="perfil-user-description">
-            Aquí va una breve descripción del usuario. ¡Comparte algo acerca de ti!
-          </p>
-        </div>
-        <div className="settings-icon" onClick={toggleSettings}>⚙️</div>
-      </div>
+        </PerfilAvatar>
+        <PerfilUserInfo>
+          <PerfilUsername>Usuario</PerfilUsername>
+          <PerfilUserEmail>correo@ejemplo.com</PerfilUserEmail>
+          <PerfilUserDescription>¡Comparte algo acerca de ti!</PerfilUserDescription>
+        </PerfilUserInfo>
+        <SettingsIcon onClick={toggleSettings}>⚙️</SettingsIcon>
+      </PerfilCard>
       {showSettings && <SettingsModal closeModal={toggleSettings} />}
-      <div className="reseñas-section">
-        <h3 className="reseñas-title">Reseñas de Libros</h3>
-        <div className="reseña">
-          <h4 className="book-title">El gran libro de aventuras</h4>
-          <p className="book-review">
+      <ReseñasSection>
+        <ReseñasTitle>Reseñas</ReseñasTitle>
+        <Reseña>
+          <BookTitle>El gran libro de aventuras</BookTitle>
+          <BookReview>
             ¡Me encantó este libro! Muy inspirador y lleno de emoción.
-          </p>
-        </div>
-        <div className="reseña">
-          <h4 className="book-title">La sombra de la luna</h4>
-          <p className="book-review">
+          </BookReview>
+        </Reseña>
+        <Reseña>
+          <BookTitle>La sombra de la luna</BookTitle>
+          <BookReview>
             Fascinante historia de misterio. No pude dejar de leerlo.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const SettingsModal = ({ closeModal }) => {
-  return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        <button className="close-button" onClick={closeModal}>X</button>
-        <h2>Configuración de Perfil</h2>
-        <form>
-          <label className="label">Imagen de Perfil:</label>
-          <input type="file" accept="image/*" />
-          <label className="label">Descripción:</label>
-          <textarea placeholder="Escribe una breve descripción sobre ti" />
-          <label className="label">Email:</label>
-          <input type="email" placeholder="Correo electrónico" />
-          <button type="submit" className="save-button">Guardar Cambios</button>
-        </form>
-      </div>
-    </div>
+          </BookReview>
+        </Reseña>
+      </ReseñasSection>
+    </PerfilContainer>
   );
 };
 
