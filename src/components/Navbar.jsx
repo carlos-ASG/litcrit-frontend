@@ -120,7 +120,9 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <img src={logo} alt="LitCrit Logo" style={{ width: '80px' }} />
+       <Link to="/libros">
+        <img src={logo} alt="LitCrit Logo" style={{ width: '80px' }} />
+      </Link>
       
       <NavLinks active={menuOpen}>
         <NavLink to="/libros" onClick={closeMenu}>
