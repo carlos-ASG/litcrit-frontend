@@ -1,19 +1,72 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { HiMenu, HiX } from 'react-icons/hi';
 import libro from '../assets/libro.svg';
 import autor from '../assets/autor.svg';
-import publicar from '../assets/publicar.svg';
 import usuario from '../assets/usuario.svg';
 import logo from '../assets/LitCrit1.svg';
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    console.log('Token:', token); // Log para verificar el token
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const toggleMenu = () => setMenuOpen((prevState) => !prevState);
+  const closeMenu = () => setMenuOpen(false);
+
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      console.log('Authenticated, navigating to /perfil');
+      navigate('/perfil');
+    } else {
+      console.log('Not authenticated, navigating to /login');
+      navigate('/login');
+    }
+    closeMenu();
+  };
+
+  return (
+    <NavbarContainer>
+      <Link to="/libros">
+        <img src={logo} alt="LitCrit Logo" style={{ width: '80px' }} />
+      </Link>
+
+      <NavLinks active={menuOpen}>
+        <NavLink to="/libros" onClick={closeMenu}>
+          <img src={libro} alt="Libros" style={{ width: '25px' }} /> LIBROS
+        </NavLink>
+        <NavLink to="/autores" onClick={closeMenu}>
+          <img src={autor} alt="Autores" style={{ width: '25px' }} /> AUTORES
+        </NavLink>
+      </NavLinks>
+      <SearchInput placeholder="Buscar..." />
+      
+      <UserIcon onClick={handleUserClick}>
+        <img src={usuario} alt="Perfil" style={{ width: '25px' }} />
+      </UserIcon>
+
+      <Hamburger onClick={toggleMenu}>
+        {menuOpen ? <HiX size={25} /> : <HiMenu size={25} />}
+      </Hamburger>
+    </NavbarContainer>
+  );
+};
+
+export default Navbar;
 
 const NavbarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(45deg, #ffa143, #ffcb64); /* Degradado */
-  padding: 0.6rem 2rem; /* Navbar más delgado */
+  background: linear-gradient(45deg, #ffa143, #ffcb64);
+  padding: 0.6rem 2rem;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -21,16 +74,9 @@ const NavbarContainer = styled.nav`
   border-radius: 8px;
 `;
 
-const Logo = styled.div`
-  font-family: 'Merriweather', serif;
-  font-size: 2.2rem;
-  color: #000;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
 const NavLinks = styled.div`
   display: flex;
-  gap: 5rem; /* Aumentar el espacio entre los enlaces */
+  gap: 5rem;
   align-items: center;
 
   @media screen and (max-width: 768px) {
@@ -39,7 +85,7 @@ const NavLinks = styled.div`
     top: 70px;
     left: 0;
     right: 0;
-    background: ${(props) => (props.active ? 'linear-gradient(45deg, #ffa143, #ffcb64)' : 'transparent')}; /* Degradado solo al abrir */
+    background: ${(props) => (props.active ? 'linear-gradient(45deg, #ffa143, #ffcb64)' : 'transparent')};
     padding: 1rem 0;
     display: ${(props) => (props.active ? 'flex' : 'none')};
     border-radius: 8px;
@@ -51,7 +97,7 @@ const NavLink = styled(Link)`
   text-decoration: none;
   color: #000;
   font-family: 'Roboto', sans-serif;
-  font-weight: 400; /* Reducir el grosor de la fuente */
+  font-weight: 400;
   font-size: 1rem;
   letter-spacing: 1px;
   display: flex;
@@ -62,7 +108,7 @@ const NavLink = styled(Link)`
   padding: 0.4rem 0.8rem;
 
   &:hover {
-    background: none; /* Sin degradado en hover */
+    background: none;
     color: #000;
     font-weight: 600;
     transform: scale(1.05);
@@ -88,7 +134,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const UserIcon = styled(Link)`
+const UserIcon = styled.div`
   font-size: 2rem;
   color: #000;
   cursor: pointer;
@@ -104,46 +150,10 @@ const Hamburger = styled.div`
   display: none;
   cursor: pointer;
   background: linear-gradient(45deg, #ffa143, #ffcb64); 
-  padding: 0.3rem; /* Hacerlo más pequeño */
+  padding: 0.3rem;
   border-radius: 5px;
 
   @media screen and (max-width: 768px) {
     display: block;
   }
 `;
-
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => setMenuOpen((prevState) => !prevState);
-  const closeMenu = () => setMenuOpen(false);
-
-  return (
-    <NavbarContainer>
-       <Link to="/libros">
-        <img src={logo} alt="LitCrit Logo" style={{ width: '80px' }} />
-      </Link>
-      
-      <NavLinks active={menuOpen}>
-        <NavLink to="/libros" onClick={closeMenu}>
-          <img src={libro} alt="Libros" style={{ width: '25px' }} /> LIBROS
-        </NavLink>
-        <NavLink to="/autores" onClick={closeMenu}>
-          <img src={autor} alt="Autores" style={{ width: '25px' }} /> AUTORES
-        </NavLink>
-        <NavLink to="/publicar" onClick={closeMenu}>
-          <img src={publicar} alt="Publicar" style={{ width: '25px' }} /> PUBLICAR
-        </NavLink>
-      </NavLinks>
-      <SearchInput placeholder="Buscar..." />
-      <UserIcon to="/login" onClick={closeMenu}>
-        <img src={usuario} alt="Perfil" style={{ width: '25px' }} />
-      </UserIcon>
-      <Hamburger onClick={toggleMenu}>
-        {menuOpen ? <HiX size={25} /> : <HiMenu size={25} />}
-      </Hamburger>
-    </NavbarContainer>
-  );
-};
-
-export default Navbar;

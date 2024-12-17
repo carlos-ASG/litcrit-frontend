@@ -1,6 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import SettingsModal from "../components/SettingsModal";
+import Logout from "../assets/logout.svg";
+import { useNavigate } from "react-router-dom";
+
+const Perfil = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  // Función para manejar el logout con confirmación
+  const handleLogout = () => {
+    const confirmation = window.confirm("¿Estás seguro de que quieres salir?");
+    if (confirmation) {
+      localStorage.removeItem("access_token");  // Elimina el token de acceso
+      localStorage.removeItem("username");      // Elimina el nombre de usuario (si es necesario)
+      navigate("/login"); // Redirige al usuario a la página de login
+    }
+  };
+
+  return (
+    <PerfilContainer>
+      <PerfilHeader>Tu Perfil</PerfilHeader>
+      <Line />
+      <PerfilCard>
+        <PerfilUserInfo>
+          <PerfilUsername>{username || 'Usuario no encontrado'}</PerfilUsername>
+        </PerfilUserInfo>
+      </PerfilCard>
+      <ReseñasSection>
+        <ReseñasTitle>Reseñas</ReseñasTitle>
+        <Reseña>
+          <BookTitle>El gran libro de aventuras</BookTitle>
+          <BookReview>
+            ¡Me encantó este libro! Muy inspirador y lleno de emoción.
+          </BookReview>
+        </Reseña>
+        <Reseña>
+          <BookTitle>La sombra de la luna</BookTitle>
+          <BookReview>
+            Fascinante historia de misterio. No pude dejar de leerlo.
+          </BookReview>
+        </Reseña>
+      </ReseñasSection>
+      
+      {/* Botón Logout */}
+      <LogoutButton onClick={handleLogout}>
+        <img src={Logout} alt="Logout" />
+      </LogoutButton>
+    </PerfilContainer>
+  );
+};
 
 const PerfilContainer = styled.div`
   width: 80%;
@@ -33,41 +88,14 @@ const PerfilCard = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const PerfilAvatar = styled.div`
-  img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-  }
-`;
-
 const PerfilUserInfo = styled.div`
   text-align: left;
 `;
 
 const PerfilUsername = styled.h3`
   margin: 0;
-  font-weight: bold;
-  font-size: 1.5rem;
-`;
-
-const PerfilUserEmail = styled.p`
-  margin: 0;
-  color: #888;
-`;
-
-const PerfilUserDescription = styled.p`
-  margin-top: 0.5rem;
-  color: #666;
-`;
-
-const SettingsIcon = styled.div`
-  font-size: 2rem;
-  cursor: pointer;
-  color: #ffa143;
-  &:hover {
-    color: #ff8c00;
-  }
+  font-weight: 400;
+  font-size: 1.3rem;
 `;
 
 const ReseñasSection = styled.div`
@@ -97,49 +125,26 @@ const BookReview = styled.p`
   color: #666;
 `;
 
-const Perfil = () => {
-  const [showSettings, setShowSettings] = useState(false);
+// Estilos para el botón sticky
+const LogoutButton = styled.div`
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  background: linear-gradient(135deg, #ff8c00, #ff5e00);
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
-  };
+  img {
+    width: 25px;
+    height: 25px;
+  }
 
-  return (
-    <PerfilContainer>
-      <PerfilHeader>Tu Perfil</PerfilHeader>
-      <Line />
-      <PerfilCard>
-        <PerfilAvatar>
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Foto de Perfil"
-          />
-        </PerfilAvatar>
-        <PerfilUserInfo>
-          <PerfilUsername>Usuario</PerfilUsername>
-          <PerfilUserEmail>correo@ejemplo.com</PerfilUserEmail>
-          <PerfilUserDescription>¡Comparte algo acerca de ti!</PerfilUserDescription>
-        </PerfilUserInfo>
-        <SettingsIcon onClick={toggleSettings}>⚙️</SettingsIcon>
-      </PerfilCard>
-      {showSettings && <SettingsModal closeModal={toggleSettings} />}
-      <ReseñasSection>
-        <ReseñasTitle>Reseñas</ReseñasTitle>
-        <Reseña>
-          <BookTitle>El gran libro de aventuras</BookTitle>
-          <BookReview>
-            ¡Me encantó este libro! Muy inspirador y lleno de emoción.
-          </BookReview>
-        </Reseña>
-        <Reseña>
-          <BookTitle>La sombra de la luna</BookTitle>
-          <BookReview>
-            Fascinante historia de misterio. No pude dejar de leerlo.
-          </BookReview>
-        </Reseña>
-      </ReseñasSection>
-    </PerfilContainer>
-  );
-};
+  &:hover {
+    background: linear-gradient(135deg, #ff5e00, #ff8c00);
+  }
+`;
 
 export default Perfil;

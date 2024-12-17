@@ -17,7 +17,8 @@ const Login = () => {
       console.log("Respuesta del login:", response);
       
       // Si el login es exitoso, guarda el token de acceso y redirige
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("access_token", response.access_token);
+      localStorage.setItem("username", username); // Guardar el nombre de usuario
       navigate("/libros");
     } catch (error) {
       setErrorMessage("Usuario o contraseña incorrectos"); 
