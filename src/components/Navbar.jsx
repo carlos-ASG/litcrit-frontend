@@ -136,7 +136,7 @@ const Navbar = () => {
         </NavLink>
       </NavLinks>
       <SearchInput placeholder="Buscar..." />
-      <UserIcon to="/perfil" onClick={closeMenu}>
+      <UserIcon to="/login" onClick={closeMenu}>
         <img src={usuario} alt="Perfil" style={{ width: '25px' }} />
       </UserIcon>
       <Hamburger onClick={toggleMenu}>

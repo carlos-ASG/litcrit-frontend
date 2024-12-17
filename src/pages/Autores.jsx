@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Autores = () => {
-  console.log("Componente Autores cargado"); // Agregar un console.log para comprobar
   return (
       <Title>Autores</Title>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/BookGallery.css';
-
 import { Link } from 'react-router-dom';
 
 const books = {
