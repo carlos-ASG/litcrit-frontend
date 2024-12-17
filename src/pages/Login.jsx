@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import LitCritLogo from "../assets/LitCrit1.svg";
+import { login } from "../api/auth";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit = (data) => {
-    console.log("Datos enviados:", data);
+  const onSubmit = async (data) => {
+    try {
+      const { username, password } = data;
+      const response = await login(username, password);
+      console.log("Respuesta del login:", response);
+      
+      // Si el login es exitoso, guarda el token de acceso y redirige
+      localStorage.setItem("token", response.token);
+      navigate("/libros");
+    } catch (error) {
+      setErrorMessage("Usuario o contraseña incorrectos"); 
+    }
   };
 
   return (
@@ -41,6 +53,8 @@ const Login = () => {
           />
           {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} {/* Mostrar mensaje de error */}
+          
           <Button type="submit">Ingresar</Button>
           <SecondaryButton type="button" onClick={() => navigate("/registro")}>Registrarse</SecondaryButton>
         </form>

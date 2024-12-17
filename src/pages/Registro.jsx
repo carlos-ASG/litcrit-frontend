@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { register } from "../api/auth";
 
 const Registro = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const { register: formRegister, handleSubmit, formState: { errors }, watch } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const { username, password } = data;
+      const response = await register(username, password); // Enviar solo usuario y contraseña
+      setSuccessMessage("¡Registro exitoso! Ahora puedes iniciar sesión.");
+      console.log("Registro exitoso:", response);
+    } catch (error) {
+      setErrorMessage("Hubo un error en el registro. Inténtalo de nuevo.");
+      console.error("Error en el registro:", error);
+    }
   };
 
   return (
@@ -16,34 +27,16 @@ const Registro = () => {
         <Line />
         <Subtitle>Crea tu cuenta para disfrutar de todos los beneficios</Subtitle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Label>Nombre Completo</Label>
-          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+          <Label>Usuario</Label>
+          {errors.username && <ErrorMessage>{errors.username.message}</ErrorMessage>}
           <Input
             type="text"
-            placeholder="Ingresa tu nombre"
-            {...register("name", { 
-              required: "El nombre es obligatorio", 
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: "El nombre solo puede contener letras y espacios"
-              } 
+            placeholder="Ingresa tu nombre de usuario"
+            {...formRegister("username", {
+              required: "El usuario es obligatorio",
+              minLength: { value: 3, message: "El usuario debe tener al menos 3 caracteres" },
             })}
-            error={errors.name}
-          />
-
-          <Label>Correo Electrónico</Label>
-          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-          <Input
-            type="email"
-            placeholder="Ingresa tu correo electrónico"
-            {...register("email", {
-              required: "El correo es obligatorio",
-              pattern: {
-                value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: "Ingresa un correo válido"
-              }
-            })}
-            error={errors.email}
+            error={errors.username}
           />
 
           <Label>Contraseña</Label>
@@ -51,24 +44,16 @@ const Registro = () => {
           <Input
             type="password"
             placeholder="Ingresa tu contraseña"
-            {...register("password", {
+            {...formRegister("password", {
               required: "La contraseña es obligatoria",
               minLength: { value: 8, message: "La contraseña debe tener al menos 8 caracteres" }
             })}
             error={errors.password}
           />
 
-          <Label>Confirmar Contraseña</Label>
-          {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message}</ErrorMessage>}
-          <Input
-            type="password"
-            placeholder="Confirma tu contraseña"
-            {...register("confirmPassword", {
-              validate: (value) => value === watch("password") || "Las contraseñas no coinciden"
-            })}
-            error={errors.confirmPassword}
-          />
-
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} {/* Mostrar mensaje de error */}
+          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>} {/* Mostrar mensaje de éxito */}
+          
           <Button type="submit">REGISTRARSE</Button>
         </form>
       </div>
@@ -154,4 +139,10 @@ const ErrorMessage = styled.p`
   color: red;
   font-size: 0.875rem;
   margin-bottom: 0.5rem; /* Espacio más ajustado para mantener diseño limpio */
+`;
+
+const SuccessMessage = styled.p`
+  color: green;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
 `;
