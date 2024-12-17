@@ -1,14 +1,30 @@
 import React from 'react';
 import BookGallery from '../components/BookGallery';
+import styled from 'styled-components';
 
 const Libros = () => {
   return (
-    <div>
-      <h1>Libros</h1>
+    <Container>
+      <Title>Libros</Title>
       <BookGallery />
-    </div>
-    
+    </Container>
   );
 };
 
 export default Libros;
+
+const Container = styled.div`
+  margin: 2rem auto;
+  width: 80%;
+  max-width: 1000px;
+`;
+
+const Title = styled.h1`
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+

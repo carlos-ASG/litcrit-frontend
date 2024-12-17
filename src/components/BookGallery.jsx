@@ -1,8 +1,6 @@
 import React from 'react';
 import '../styles/BookGallery.css';
 
-
-
 // Objeto con datos de libros por categorías
 const books = {
   Romance: [
