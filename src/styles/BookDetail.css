@@ -1,38 +1,115 @@
-.book-detail {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .review-form {
-    margin-top: 30px;
-  }
-  
-  textarea {
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  button {
-    background-color: #ffa143;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #ff8f00;
-  }
-  
-  .reviews {
-    margin-top: 30px;
-  }
-  
-  .reviews div {
-    background: #f9f9f9;
-    border-radius: 4px;
-  }
-  
+.book-detail-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fdfaf0;
+  font-family: Arial, sans-serif;
+}
+
+.book-image {
+  flex: 1;
+  max-width: 300px;
+}
+
+.book-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-info h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.book-info p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.book-info em {
+  color: #555;
+  font-style: italic;
+}
+
+.book-synopsis {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+  text-align: justify;
+}
+
+.book-reviews {
+  margin-top: 20px;
+}
+
+.book-reviews h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.review-form input,
+.review-form textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.review-form textarea {
+  resize: none;
+}
+
+.review-form button {
+  width: fit-content;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background-color: #ffa143;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #0056b3;
+}
+
+.review-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.review-item strong {
+  color: #333;
+}
+
+.review-item span {
+  color: #777;
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
