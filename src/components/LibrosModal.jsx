@@ -5,8 +5,8 @@ import { createBook } from '../api/libros';
 
 // Lista de géneros literarios
 const genres = [
-  'Ficción', 'Fantasía', 'Filosofia', 'Ciencia Ficción', 'Romance', 'Horror', 
-  'Aventura', 'Histórica', 'Autoayuda', 'Infantil'
+  'Ficción', 'Fantasia', 'Filosofia', 'Ciencia Ficción', 'Romance', 'Horror', 
+  'Aventura', 'Historica', 'Autoayuda', 'Infantil'
 ];
 
 const LibrosModal = ({ toggleModal }) => {
