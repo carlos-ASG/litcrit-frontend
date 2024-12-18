@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import AutoresModal from '../components/AutoresModal';
 import addIcon from '../assets/add.svg';
+import AuthorGallery from '../components/AuthorGallery';
 
 const Autores = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,10 +15,10 @@ const Autores = () => {
   return (
     <Container>
       <Title>Autores</Title>
-
+      <AuthorGallery />
       <AddButton onClick={toggleModal}>
         <img src={addIcon} alt="Agregar autor" />
-      </AddButton>
+      </AddButton> 
 
       {showModal && (
         <AutoresModal toggleModal={toggleModal} />
