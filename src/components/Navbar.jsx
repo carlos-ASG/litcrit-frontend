@@ -11,6 +11,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -32,6 +33,15 @@ const Navbar = () => {
     closeMenu();
   };
 
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      // Execute your search method here
+      console.log('Search term:', searchTerm);
+      // You can call a method to perform the search, e.g., searchBooks(searchTerm);
+    }
+  };
+
   return (
     <NavbarContainer>
       <Link to="/libros">
@@ -46,7 +56,13 @@ const Navbar = () => {
           <img src={autor} alt="Autores" style={{ width: '25px' }} /> AUTORES
         </NavLink>
       </NavLinks>
-      <SearchInput placeholder="Buscar..." />
+      <SearchInput
+        type="text"
+        placeholder="Bucar libro..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleSearch}
+      />
       
       <UserIcon onClick={handleUserClick}>
         <img src={usuario} alt="Perfil" style={{ width: '25px' }} />
