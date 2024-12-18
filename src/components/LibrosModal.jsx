@@ -97,9 +97,9 @@ const LibrosModal = ({ toggleModal }) => {
           <Input
             placeholder="URL de la imagen"
             {...register('imagen', { required: 'Este campo es obligatorio' })}
-            error={errors.image}
+            error={errors.imagen}
           />
-          {errors.image && <Error>{errors.image.message}</Error>}
+          {errors.imagen && <Error>{errors.imagen.message}</Error>}
 
           <Button type="submit">Agregar</Button>
         </Form>
