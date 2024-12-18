@@ -9,9 +9,8 @@ const nationalities = [
 ];
 
 const genres = [
-  'Ficción', 'No Ficción', 'Fantasía', 'Filosofía', 'Ciencia Ficción', 'Romance', 'Terror', 
-  'Suspenso/Thriller', 'Misterio', 'Aventura', 'Histórica', 'Poesía', 
-  'Drama', 'Biografía/Autobiografía', 'Autoayuda', 'Infantil/Juvenil', 'Religión/Espiritualidad'
+  'Ficción', 'Filosofía', 'Ciencia Ficción', 'Romance', 'Horror', 
+  'Autoayuda', 
 ];
 
 const AutoresModal = ({ toggleModal }) => {
