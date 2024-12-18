@@ -27,7 +27,7 @@ export const getAllAuthors = async () => {
 // Get a single author by ID
 export const getAuthorById = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await axios.get(`${API_URL}/getById/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching author:', error.response?.data || error.message);
@@ -55,4 +55,9 @@ export const deleteAuthor = async (id) => {
     console.error('Error deleting author:', error.response?.data || error.message);
     throw error.response?.data || error.message;
   }
+};
+
+export const getAuthorByName = async (nombre) => {
+  const response = await fetch(`http://localhost:5000/autores/getById/${nombre}`);
+  return response.json();
 };
