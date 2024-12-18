@@ -1,0 +1,43 @@
+.gallery {
+    font-family: 'Poppins', sans-serif;
+    margin: 20px;
+  }
+  
+  .category h2 {
+    margin: 20px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1.5px solid #d3d3d3;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .authors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .author {
+    width: 150px;
+    text-align: center;
+  }
+  
+  .author img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .author p {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .author span {
+    font-size: 0.8rem;
+    color: #666;
+    font-family: 'Poppins', sans-serif;
+  }
