@@ -28,7 +28,7 @@ export const createBook = async (bookData) => {
   // Get a single book by ID
   export const getBookById = async (id) => {
     try {
-      const response = await axios.get(`${API_URL}/${id}`);
+      const response = await axios.get(`${API_URL}/getById/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching book:', error.response?.data || error.message);
