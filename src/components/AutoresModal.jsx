@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { createAuthor } from '../api/autores';
 
 const nationalities = [
   'Argentina', 'España', 'México', 'Colombia', 'Chile', 'Perú', 'Francia', 
@@ -22,8 +23,10 @@ const AutoresModal = ({ toggleModal }) => {
   } = useForm();
 
   // Manejo del envío del formulario
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const response = await createAuthor(data);
+    console.log('author created:', response);
+    reset();
     // Lógica para enviar los datos (puedes agregar una API o algo similar)
     reset(); // Resetear el formulario después de enviar
     toggleModal(); // Cerrar el modal
@@ -41,13 +44,13 @@ const AutoresModal = ({ toggleModal }) => {
           <Label>Nombre del autor</Label>
           <Input
             placeholder="Nombre del autor"
-            {...register('name', { required: 'Este campo es obligatorio' })}
+            {...register('nombre', { required: 'Este campo es obligatorio' })}
             error={errors.name}
           />
           {errors.name && <Error>{errors.name.message}</Error>}
 
           <Label>Nacionalidad</Label>
-          <Select {...register('nationality', { required: 'Este campo es obligatorio' })} error={errors.nationality}>
+          <Select {...register('nacionalidad', { required: 'Este campo es obligatorio' })} error={errors.nationality}>
             <option value="">Seleccionar nacionalidad</option>
             {nationalities.map((nationality, index) => (
               <option key={index} value={nationality}>{nationality}</option>
@@ -56,7 +59,7 @@ const AutoresModal = ({ toggleModal }) => {
           {errors.nationality && <Error>{errors.nationality.message}</Error>}
 
           <Label>Género Literario</Label>
-          <Select {...register('genre', { required: 'Este campo es obligatorio' })} error={errors.genre}>
+          <Select {...register('genero', { required: 'Este campo es obligatorio' })} error={errors.genre}>
             <option value="">Seleccionar género</option>
             {genres.map((genre, index) => (
               <option key={index} value={genre}>{genre}</option>
@@ -64,10 +67,18 @@ const AutoresModal = ({ toggleModal }) => {
           </Select>
           {errors.genre && <Error>{errors.genre.message}</Error>}
 
+          <Label>Biografia</Label>
+          <Textarea
+            placeholder="Escribe una biografia..."
+            {...register('biografia', { required: 'Este campo es obligatorio' })}
+            error={errors.biografia}
+          />
+          {errors.biografia && <Error>{errors.biografia.message}</Error>}
+
           <Label>Imagen (URL)</Label>
           <Input
             placeholder="URL de la imagen"
-            {...register('image', { required: 'Este campo es obligatorio' })}
+            {...register('imagen', { required: 'Este campo es obligatorio' })}
             error={errors.image}
           />
           {errors.image && <Error>{errors.image.message}</Error>}
@@ -176,6 +187,26 @@ const Select = styled.select`
     border: 2px solid red;
     background-color: #f8d7da;
   `}
+`;
+
+const Textarea = styled.textarea`
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid #ffa143;
+  border-radius: 5px;
+  padding: 0.5rem;
+  resize: none;
+  height: 100px;
+  outline: none;
+  margin-bottom: 1rem;
+  width: 100%;
+  ${(props) => props.error && `
+    border: 1px solid red;
+    background-color: #f8d7da;
+  `}
+
+  &:focus {
+    border-color: #ff8c00;
+  }
 `;
 
 const Button = styled.button`

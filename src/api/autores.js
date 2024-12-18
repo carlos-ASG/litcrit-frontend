@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:5000/autores';
 // Create a new author
 export const createAuthor = async (authorData) => {
   try {
-    const response = await axios.post(`${API_URL}`, authorData);
+    const response = await axios.post(`${API_URL}/insert`, authorData);
     return response.data;
   } catch (error) {
     console.error('Error creating author:', error.response?.data || error.message);
