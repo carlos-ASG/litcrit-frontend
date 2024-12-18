@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:5000/libros';
 
 export const createBook = async (bookData) => {
     try {
-      const response = await axios.post(`${API_URL}`, bookData);
+      const response = await axios.post(`${API_URL}/insert`, bookData);
       return response.data;
     } catch (error) {
       console.error('Error creating book:', error.response?.data || error.message);
