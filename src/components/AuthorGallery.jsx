@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AuthorGallery.css';
 import { Link } from 'react-router-dom';
-import { getAllAuthors } from '../api/autores'; // Asegúrate de tener esta función en tu archivo de API
+import { getAllAuthors } from '../api/autores';
 
 const AuthorGallery = () => {
   const [authors, setAuthors] = useState({
@@ -9,7 +9,8 @@ const AuthorGallery = () => {
     'Ciencia ficción': [],
     Horror: [],
     Autoayuda: [],
-    Filosofía: []
+    Filosofía: [],
+    Ficción: []
   });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const AuthorGallery = () => {
           Horror: horror,
           Autoayuda: autoA,
           Filosofía: filosofia,
-            'Ficción': ficcion
+          Ficción: ficcion
         });
       } catch (error) {
         console.error('Error fetching authors:', error);
@@ -45,8 +46,9 @@ const AuthorGallery = () => {
           <h2>{categoria}</h2>
           <div className="authors">
             {authorsList.map((author) => (
-              <div key={author.nombre} className="author">
-                <Link to={`/author/${author.nombre}`}>
+              <div key={author._id} className="author">
+                {/* Redirigir usando el ID del autor */}
+                <Link to={`/author/${author._id}`}>
                   <img src={author.imagen} alt={author.nombre} />
                   <p>{author.nombre}</p>
                 </Link>

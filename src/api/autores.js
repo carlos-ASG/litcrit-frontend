@@ -57,7 +57,3 @@ export const deleteAuthor = async (id) => {
   }
 };
 
-export const getAuthorByName = async (nombre) => {
-  const response = await fetch(`http://localhost:5000/autores/getById/${nombre}`);
-  return response.json();
-};
