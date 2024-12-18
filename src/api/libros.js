@@ -12,16 +12,18 @@ export const createBook = async (bookData) => {
     }
   };
   
-  // Get all books
+  
+  // Get all books 
   export const getAllBooks = async () => {
     try {
-      const response = await axios.get(`${API_URL}`);
+      const response = await axios.get(`${API_URL}/getAll`);
       return response.data;
     } catch (error) {
       console.error('Error fetching books:', error.response?.data || error.message);
       throw error.response?.data || error.message;
     }
   };
+  
   
   // Get a single book by ID
   export const getBookById = async (id) => {
