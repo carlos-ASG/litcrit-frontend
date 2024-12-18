@@ -18,7 +18,7 @@ const BookGallery = () => {
         const datos = await getAllBooks();
         const filosofia = datos.filter((book) => book.categoria === 'Filosofia');
         const romance = datos.filter((book) => book.categoria === 'Romance');
-        const cienciaF = datos.filter((book) => book.categoria === 'Ciencia ficcion');
+        const cienciaF = datos.filter((book) => book.categoria === 'Ciencia Ficción');
         const ficcion = datos.filter((book) => book.categoria === 'Ficción');
         const horror = datos.filter((book) => book.categoria === 'Horror');
         const autoA = datos.filter((book) => book.categoria === 'Autoayuda');
