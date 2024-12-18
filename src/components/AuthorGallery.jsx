@@ -17,7 +17,7 @@ const AuthorGallery = () => {
       try {
         const datos = await getAllAuthors();
         const romance = datos.filter((author) => author.genero === 'Romance');
-        const cienciaF = datos.filter((author) => author.genero === 'Ciencia ficción');
+        const cienciaF = datos.filter((author) => author.genero === 'Ciencia Ficción');
         const horror = datos.filter((author) => author.genero === 'Horror');
         const autoA = datos.filter((author) => author.genero === 'Autoayuda');
         const filosofia = datos.filter((author) => author.genero === 'Filosofía');
