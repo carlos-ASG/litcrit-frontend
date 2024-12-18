@@ -23,8 +23,7 @@ const BookGallery = () => {
         const horror = datos.filter((book) => book.categoria === 'Horror');
         const autoA = datos.filter((book) => book.categoria === 'Autoayuda');
         const fantasia = datos.filter((book) => book.categoria === 'Fantasia');
-        const infantil = datos.filter((book) => book.categoria === 'Infantil');
-        const historia = datos.filter((book) => book.categoria === 'Historia');
+        
         setBooks((prevBooks) => ({
           ...prevBooks,
           Filosofía: filosofia,
@@ -33,9 +32,8 @@ const BookGallery = () => {
           Horror: horror,
           Autoayuda: autoA,
           "Ficción": ficcion,
-          Fantasia: fantasia,
-          Infantil: infantil,
-          Historia: historia
+          Fantasia: fantasia
+          
         }));
       } catch (error) {
         console.error('Error fetching books:', error);
