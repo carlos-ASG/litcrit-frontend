@@ -83,7 +83,7 @@ const LibrosModal = ({ toggleModal }) => {
           </Select>
           {errors.genre && <Error>{errors.genre.message}</Error>}
 
-          <Label>Sinpsis</Label>
+          <Label>Sinopsis</Label>
           <Textarea
             placeholder="Escribe una reseña..."
             {...register('sinpsis', { required: 'Este campo es obligatorio' })}
