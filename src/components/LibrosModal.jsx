@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { createBook } from '../api/libros';
 
 // Lista de géneros literarios
 const genres = [
@@ -18,11 +19,15 @@ const LibrosModal = ({ toggleModal }) => {
   } = useForm();
 
   // Manejo del envío del formulario
-  const onSubmit = (data) => {
-    console.log(data);
-    // Lógica para enviar los datos (puedes agregar una API o algo similar)
-    reset(); // Resetear el formulario después de enviar
-    toggleModal(); // Cerrar el modal
+  const onSubmit = async (data) => {
+    try {
+      const response = await createBook(data);
+      console.log('Book created:', response);
+      reset(); // Reset the form after successful submission
+      toggleModal(); // Close the modal
+    } catch (error) {
+      console.error('Error creating book:', error);
+    }
   };
 
   return (
@@ -37,7 +42,7 @@ const LibrosModal = ({ toggleModal }) => {
           <Label>Nombre del libro</Label>
           <Input
             placeholder="Nombre del libro"
-            {...register('name', { required: 'Este campo es obligatorio' })}
+            {...register('titulo', { required: 'Este campo es obligatorio' })}
             error={errors.name}
           />
           {errors.name && <Error>{errors.name.message}</Error>}
@@ -45,7 +50,7 @@ const LibrosModal = ({ toggleModal }) => {
           <Label>Autor</Label>
           <Input
             placeholder="Autor"
-            {...register('author', { required: 'Este campo es obligatorio' })}
+            {...register('autor', { required: 'Este campo es obligatorio' })}
             error={errors.author}
           />
           {errors.author && <Error>{errors.author.message}</Error>}
@@ -53,7 +58,7 @@ const LibrosModal = ({ toggleModal }) => {
           <Label>Editorial</Label>
           <Input
             placeholder="Editorial"
-            {...register('publisher', { required: 'Este campo es obligatorio' })}
+            {...register('editorial', { required: 'Este campo es obligatorio' })}
             error={errors.publisher}
           />
           {errors.publisher && <Error>{errors.publisher.message}</Error>}
@@ -62,7 +67,7 @@ const LibrosModal = ({ toggleModal }) => {
           <Input
             type="number"
             placeholder="Páginas"
-            {...register('pages', {
+            {...register('paginas', {
               required: 'Este campo es obligatorio',
               min: { value: 1, message: 'Debe ser un número mayor a 0' },
             })}
@@ -71,7 +76,7 @@ const LibrosModal = ({ toggleModal }) => {
           {errors.pages && <Error>{errors.pages.message}</Error>}
 
           <Label>Género</Label>
-          <Select {...register('genre', { required: 'Este campo es obligatorio' })} error={errors.genre}>
+          <Select {...register('categoria', { required: 'Este campo es obligatorio' })} error={errors.genre}>
             <option value="">Seleccionar género</option>
             {genres.map((genre, index) => (
               <option key={index} value={genre}>{genre}</option>
@@ -79,20 +84,14 @@ const LibrosModal = ({ toggleModal }) => {
           </Select>
           {errors.genre && <Error>{errors.genre.message}</Error>}
 
-          <Label>Reseña</Label>
+          <Label>Sinpsis</Label>
           <Textarea
             placeholder="Escribe una reseña..."
-            {...register('review', { required: 'Este campo es obligatorio' })}
+            {...register('sinpsis', { required: 'Este campo es obligatorio' })}
             error={errors.review}
           />
           {errors.review && <Error>{errors.review.message}</Error>}
 
-          <Label>Calificación</Label>
-          <Stars>
-            {[1, 2, 3, 4, 5].map(star => (
-              <Star key={star} className="star">★</Star>
-            ))}
-          </Stars>
 
           <Label>Imagen</Label>
           <Input
